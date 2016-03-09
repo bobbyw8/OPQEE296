@@ -2,7 +2,8 @@
 
 import os
 from bottle import route, run, static_file, template, post
-from __init__ import get_ssids
+from bottle import request, redirect
+from __init__ import get_ssids, connect_to_network
 
 @route('/js/<filename>')
 def js_static(filename):
