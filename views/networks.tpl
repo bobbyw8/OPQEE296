@@ -16,7 +16,7 @@
   <!--</head>-->
 
   <!--<body>-->
-   <div class="container">
+   <!--<div class="container">-->
   <!--<h2>Table Testing</h2>-->
   <table class="table table-striped table-hover">
     <thead>
@@ -61,6 +61,7 @@
           <input name="sub_WEP" type="submit" class="btn btn-default" value="Connect">
           <input type="button" class="btn btn-default" data-dismiss="modal" onclick="resetFunction()" value ="Cancel">
           </form>
+          </div>
          </div>
       </div>
     </div>
@@ -118,15 +119,15 @@
   </div>
 
 
-    </div>
+    <!--</div>-->
 
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-      <script src="/js/jquery.min.js"></script>
-      <script src="/js/bootstrap.min.js"></script>
+      <!--<script src="/js/jquery.min.js"></script>-->
+      <!--<script src="/js/bootstrap.min.js"></script>-->
       <script language="JavaScript">
 
 

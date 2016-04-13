@@ -21,16 +21,25 @@
         <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px; background-color:#FFFFFF;">
             <section class="container-fluid">
                 <div class="navbar-header">
-
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" id="menu-toggle" style="display: inline">
-
+                       <button type="button" class="navbar-toggle" data-toggle="collapse" id="menu-toggle" style="display: inline;">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                </div>
+                <div class="navbar-header">
+
+
+                    <img src="/img/OPQ_LOGO.JPG" style="width:40px; height:40px; margin-top:6px;">
 
                 </div>
-                <img src="/img/OPQ_LOGO.JPG" style="width:60px;height:60px">
+                <div class="navbar-header">
+
+                <h4 style="margin-top:15px">Open Power Quality</h4>
+
+                </div>
+
+
             </section>
         </nav>
 
@@ -53,11 +62,12 @@
                 <div class ="row">
                     <div class ="col-lg-12">
                         %if check == "diagnostics":
-                            %include diagnostics.tpl
+                            %include('diagnostics.tpl')
                         %elif check == "networks":
                             %include networks.tpl
+
                         %else:
-                            %include debug.tpl
+                            %include('diagnostics.tpl')
                         %end
                     </div>
                 </div>
