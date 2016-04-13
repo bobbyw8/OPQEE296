@@ -17,7 +17,7 @@
 <body>
 
     <div id="wrapper" class="menuDisplayed">
-        <!-- Navbar -->
+        <!-- Navbar   -->
         <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px; background-color:#FFFFFF;">
             <section class="container-fluid">
                 <div class="navbar-header">
