@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import os
-from bottle import route, run, static_file, template, post
-from bottle import request, redirect
+from bottle import route, run, static_file
+from bottle import template, get, post, request, redirect
 from __init__ import get_ssids, connect_to_network
 
 @route('/js/<filename>')
@@ -18,45 +18,65 @@ def img_static(filename):
     return static_file(filename, root='./css')
 
 @route("/")
-def hello():
-       return template('main1.tpl', List1=get_ssids())
+def main():
+    pageset="diagnostics"
+    return template('debug.tpl', check= pageset, ssid=get_ssids())
 
-@post("/")
+@route("/networks")
+def networks():
+    pageset="networks"
+    return template('debug.tpl', check=pageset, ssid=get_ssids())
+
+@post("/networks")
 def connect():
 
     if request.POST.get("sub_OPEN","").strip():
-        mSSID = request.forms.get('fSSID_OPEN')
-        connect_to_network(mSSID)
-        redirect("/load")
 
-    elif request.POST.get("sub_WPA","").strip():
-        password = request.forms.get('pwd2')
+        mSSID = request.forms.get('fOPEN')
+        connect_to_network(mSSID)
+        return '<h1 style="color:blue;">CONNECTED</h1>'
+
+    elif request.POST.get("sub_WPA", "").strip():
+
+        password = request.forms.get('pwdWPA')
+
         if password == 'abcd':
-            mSSID = request.forms.get('fSSID_WPA')
+
+            mSSID = request.forms.get('fWPA')
             connect_to_network(mSSID)
-            redirect("/load")
+
+            return '<h1 style="color:blue;">CONNECTED</h1>'
         else:
-            return template('main1.tpl', List1=get_ssids())
+            #should display invalid password try again
+            redirect("/")
 
     elif request.POST.get("sub_WEP","").strip():
-        password = request.forms.get('pwd1')
+
+        password = request.forms.get('pwdWEP')
+
         if password == 'abcd':
-            mSSID = request.forms.get('fSSID_WEP')
+
+            mSSID = request.forms.get('fWEP')
             connect_to_network(mSSID)
-            redirect("/load")
+
+            return '<h1 style="color:blue;">CONNECTED</h1>'
         else:
-            return template('main1.tpl', List1=get_ssids())
+            #should display invalid password try again
+            redirect("/")
 
     redirect("/")
 
-
-#Put new template in the if    statements above when checking password.
-@route("/debug")
+@route('/diagnostics')
 def debug():
+    pageset = "diagnostics"
+    return template('debug.tpl', check= pageset)
 
-    return template('debug1.tpl')
-
-
+@post('/diagnostics')
+def do_command():
+    command = request.forms.get('fCMD')
+    print "Testing command:",command
+    pageset = "diagnostics"
+    return template('debug.tpl', check = pageset)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
