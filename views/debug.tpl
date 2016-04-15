@@ -65,7 +65,8 @@
                             %include('diagnostics.tpl')
                         %elif check == "networks":
                             %include networks.tpl
-
+                        %elif check == "connected to network":
+                            <h4>Connected to {{mSSID}}</h4>
                         %else:
                             %include('diagnostics.tpl')
                         %end

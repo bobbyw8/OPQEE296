@@ -41,7 +41,9 @@
 
 <!-- Modal -->
 
-  <div class="modal fade" id="WEP" role="dialog">
+
+<div class="modal fade" id="WEP" role="dialog" >
+
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -51,17 +53,20 @@
           <h4 class="modal-title">Type the network security key</h4>
         </div>
 
-        <form action ="/" method="POST" >
+        <form action ="/networks" method="POST" >
         <div class="modal-body" >
           <label for= "pwdWEP">Security key:</label>
           <input type="password" class="form-control" id="pwdWEP" name="pwdWEP">
+          %if pwdCheck=="incorrect password":
+          <label>The network security key isn't correct. Please try again.</label>
+          %end
         </div>
         <div class="modal-footer">
           <input name="fWEP" id="idWEP">
           <input name="sub_WEP" type="submit" class="btn btn-default" value="Connect">
           <input type="button" class="btn btn-default" data-dismiss="modal" onclick="resetFunction()" value ="Cancel">
-          </form>
-          </div>
+        </div>
+        </form>
          </div>
       </div>
     </div>
@@ -78,18 +83,24 @@
           <h4 class="modal-title">Type the network security key</h4>
         </div>
 
-        <form action ="/" method="POST" >
+        <form action ="/networks" method="POST" >
         <div class="modal-body">
           <label for= "pwdWPA">Security key:</label>
           <input type="password" class="form-control" id="pwdWPA" name="pwdWPA">
-        </div>
-        <div class="modal-footer">
+
+          %if pwdCheck=="incorrect password":
+          <label>The network security key isn't correct. Please try again.</label>
+          %end
+
+         </div>
+          <div class="modal-footer">
 
           <input name="fWPA" id="idWPA">
           <input name="sub_WPA" type="submit" class="btn btn-default" value="Connect">
           <input type="button" class="btn btn-default" data-dismiss="modal" onclick="resetFunction()" value ="Cancel">
+          </div>
           </form>
-        </div>
+
       </div>
 
     </div>
@@ -108,7 +119,7 @@
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <form action ="/" method="POST" >
+          <form action ="/networks" method="POST" >
           <input name="fOPEN" id="idOPEN">
           <input type="submit" name="sub_OPEN" value="Connect" class="btn btn-default">
           <input type="button" class="btn btn-default" data-dismiss="modal" onclick="resetFunction()" value ="Cancel">

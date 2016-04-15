@@ -19,13 +19,11 @@ def img_static(filename):
 
 @route("/")
 def main():
-    pageset="diagnostics"
-    return template('debug.tpl', check= pageset, ssid=get_ssids())
+    return template('debug.tpl', check= "diagnostics", ssid=get_ssids())
 
 @route("/networks")
 def networks():
-    pageset="networks"
-    return template('debug.tpl', check=pageset, ssid=get_ssids())
+    return template('debug.tpl', check="networks", ssid=get_ssids(), pwdCheck="")
 
 @post("/networks")
 def connect():
@@ -33,8 +31,9 @@ def connect():
     if request.POST.get("sub_OPEN","").strip():
 
         mSSID = request.forms.get('fOPEN')
+        print "Connecting to SSID: ",mSSID
         connect_to_network(mSSID)
-        return '<h1 style="color:blue;">CONNECTED</h1>'
+        return template('debug.tpl', check="connected to network", mSSID=mSSID)
 
     elif request.POST.get("sub_WPA", "").strip():
 
@@ -43,12 +42,16 @@ def connect():
         if password == 'abcd':
 
             mSSID = request.forms.get('fWPA')
+            print "Connecting to SSID: ",mSSID
             connect_to_network(mSSID)
 
-            return '<h1 style="color:blue;">CONNECTED</h1>'
+            return template('debug.tpl', check="connected to network", mSSID=mSSID, pwdCheck = "")
+            #tried try-except instead of define pwdCheck but the bottom of the form is cut off. Will look into later
         else:
             #should display invalid password try again
-            redirect("/")
+
+            return template ('debug.tpl',check="networks", pwdCheck="incorrect password",ssid=get_ssids(),mSSID=mSSID)
+            redirect("/networks")
 
     elif request.POST.get("sub_WEP","").strip():
 
@@ -57,14 +60,18 @@ def connect():
         if password == 'abcd':
 
             mSSID = request.forms.get('fWEP')
+            print "Connecting to SSID: ",mSSID
             connect_to_network(mSSID)
 
-            return '<h1 style="color:blue;">CONNECTED</h1>'
+            return template('debug.tpl', check="connected to network", mSSID=mSSID, pwdCheck = "")
+            #tried try-except instead of define pwdCheck but the bottom of the form is cut off. Will look into later
         else:
             #should display invalid password try again
-            redirect("/")
+            return template ('debug.tpl',check="networks", pwdCheck="incorrect password",ssid=get_ssids(),mSSID=mSSID)
+            redirect("/networks")
 
-    redirect("/")
+
+    redirect("/networks")
 
 @route('/diagnostics')
 def debug():
