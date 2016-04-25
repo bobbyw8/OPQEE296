@@ -4,7 +4,8 @@ import os
 from bottle import route, run, static_file
 from bottle import template, get, post, request, redirect
 from __init__ import get_ssids, connect_to_network
-
+from time import gmtime, strftime
+arr = []
 @route('/js/<filename>')
 def js_static(filename):
     return static_file(filename, root='./js')
@@ -19,7 +20,7 @@ def img_static(filename):
 
 @route("/")
 def main():
-    return template('debug.tpl', check= "diagnostics", ssid=get_ssids())
+    return template('debug.tpl', check= "diagnostics", ssid=get_ssids(),arrlog=arr)
 
 @route("/networks")
 def networks():
@@ -76,14 +77,21 @@ def connect():
 @route('/diagnostics')
 def debug():
     pageset = "diagnostics"
-    return template('debug.tpl', check= pageset)
+    arrlog=arr
+    return template('debug.tpl', check= pageset, arrlog=arrlog)
 
 @post('/diagnostics')
 def do_command():
+
+    arrlog=arr
     command = request.forms.get('fCMD')
     print "Entered command:",command
+    cmdTime = strftime("%Y-%m-%d %H:%M:%S",gmtime())
+    print "Time:",cmdTime
+    arr.append([cmdTime,command])
+    print (arr)
     pageset = "diagnostics"
-    return template('debug.tpl', check = pageset)
+    return template('debug.tpl', check = pageset, arrlog = arrlog)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
