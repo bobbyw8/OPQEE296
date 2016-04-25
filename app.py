@@ -50,7 +50,7 @@ def connect():
         else:
             #should display invalid password try again
 
-            return template ('debug.tpl',check="networks", pwdCheck="incorrect password",ssid=get_ssids(),mSSID=mSSID)
+            return template ('debug.tpl',check="networks", pwdCheck="incorrect password",ssid=get_ssids())
             redirect("/networks")
 
     elif request.POST.get("sub_WEP","").strip():
@@ -67,7 +67,7 @@ def connect():
             #tried try-except instead of define pwdCheck but the bottom of the form is cut off. Will look into later
         else:
             #should display invalid password try again
-            return template ('debug.tpl',check="networks", pwdCheck="incorrect password",ssid=get_ssids(),mSSID=mSSID)
+            return template ('debug.tpl',check="networks", pwdCheck="incorrect password",ssid=get_ssids())
             redirect("/networks")
 
 
@@ -81,7 +81,7 @@ def debug():
 @post('/diagnostics')
 def do_command():
     command = request.forms.get('fCMD')
-    print "Testing command:",command
+    print "Entered command:",command
     pageset = "diagnostics"
     return template('debug.tpl', check = pageset)
 
